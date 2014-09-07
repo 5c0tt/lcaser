@@ -1,0 +1,46 @@
+#!/bin/bash
+# set -o nounset  # Referencing undefined variables (which default to "")
+# set -o errexit  # Ignoring failing commands
+# 05/29/14 — 11:38:02 AM Added above commands and changed to sh instead of bash to be more POSIX'y
+
+ARG=$1 # First passed in argument
+if [[ -z $ARG ]]; then
+     # No directory path argument passed
+     echo "  Error: Please supply a directory path as an argument.";
+     script_name="$(basename "$0")";
+     echo "  Usage: $script_name ~/Desktop/myFiles";
+
+     exit;
+fi
+
+echo "( DEBUG ) Got past the first test for an argument being passed in."
+
+
+# Change into the directory with the files to rename
+cd "$ARG"
+echo "";
+echo "Setting files and directories in: `pwd` to lowercase";
+echo "( DEBUG ) Got past the change to the new directory, it is called:"
+echo "$ARG"
+
+
+# Read in all files from a directory
+for file in *; do
+     # Ignore .DS_Store for Mac OS X
+     if [[ "$file" == ".DS_Store" ]]; then
+          echo "Ignoring $file";
+          continue
+     fi
+
+     echo "( DEBUG ) reading the filename by looping over the passed in ARG. Current file is: $file"
+
+     lowercase_filename=`echo $file | tr '[:upper:]' '[:lower:]'`; # Lowercase all uppper characters to lower characters
+
+     if [[ "$lowercase_filename" != "$file" ]]; then
+          # Display to the shell what just happened
+          echo "Renaming: " \"$file\" " -> " \"$lowercase_filename\";
+          mv "$file" "$lowercase_filename";
+     else
+          echo "Ignoring: " \"$file\" " -> " \"$lowercase_filename\";
+     fi
+done
