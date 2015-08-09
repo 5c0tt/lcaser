@@ -1,4 +1,5 @@
-Last Modified 12/22/14 - 08:09:27 A.M. • Scott Haneda • [@cometbus](https://twitter.com/cometbus)
+08.08.2015 — 07:44:09 PM -0700  
+Scott Haneda [@scotthaneda](https://twitter.com/scotthaneda)
 
 #lcaser
 
